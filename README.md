@@ -1,3 +1,3 @@
 ## Xemi ##
 
-Lightweight framework for web apps focus on e-business.
+Lightweight application platform for web apps focus on e-business.
