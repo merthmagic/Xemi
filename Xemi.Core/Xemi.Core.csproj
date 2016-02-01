@@ -43,6 +43,11 @@
     <Compile Include="Configuration\ConfigResolver.cs" />
     <Compile Include="Configuration\IConfigResolver.cs" />
     <Compile Include="Configuration\XemiEnvConfig.cs" />
+    <Compile Include="Dependency\DependencyLifeStyle.cs" />
+    <Compile Include="Dependency\IDenpendencyRegistrar.cs" />
+    <Compile Include="Dependency\IDependencyManager.cs" />
+    <Compile Include="Dependency\IDependencyResolver.cs" />
+    <Compile Include="Dependency\ITypeFinder.cs" />
     <Compile Include="EngineContext.cs" />
     <Compile Include="IEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
