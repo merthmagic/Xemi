@@ -1,5 +1,6 @@
 ﻿using System;
 using Xemi.Core.Configuration;
+using Xemi.Core.Dependency;
 
 namespace Xemi.Core
 {
@@ -12,5 +13,7 @@ namespace Xemi.Core
         object Resolve(Type type);
 
         T[] ResolveAll<T>();
+
+        IDependencyManager DependencyManager { get; }
     }
 }

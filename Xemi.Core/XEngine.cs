@@ -45,5 +45,10 @@ namespace Xemi.Core
         {
             //TODO:
         }
+
+        public IDependencyManager DependencyManager
+        {
+            get { return _dependencyManager; }
+        }
     }
 }
