@@ -1,6 +1,6 @@
 ﻿namespace Xemi.Core.Dependency
 {
-    public interface IDenpendencyRegistrar
+    public interface IDependencyRegistrar
     {
          
     }

@@ -2,7 +2,7 @@
 
 namespace Xemi.Core.Dependency
 {
-    public interface IDependencyManager:IDependencyResolver,IDenpendencyRegistrar,IDisposable
+    public interface IDependencyManager:IDependencyResolver,IDependencyRegistrar,IDisposable
     {
          
     }
