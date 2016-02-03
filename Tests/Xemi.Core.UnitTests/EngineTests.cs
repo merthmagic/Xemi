@@ -1,36 +1,15 @@
 ﻿using System;
 using NUnit.Framework;
 using Xemi.Core.Configuration;
+using Xemi.Core.Dependency;
+using Xemi.Core.UnitTests.Stubs;
+using Xemi.Dependency.Autofac;
 
 namespace Xemi.Core.UnitTests
 {
     [TestFixture]
     public class EngineTests
     {
-        private class StubConfigResolver : IConfigResolver
-        {
-            public string GetConfig(string key)
-            {
-                switch (key)
-                {
-                    case "Xemi:DependencyManagerType":
-                        {
-                            return "Xemi.Dependency.Autofac.DependencyManager,Xemi.Dependency.Autofac";
-                        }
-                    default:
-                        {
-                            return null;
-                        }
-                }
-            }
-        }
-
-        [TestFixtureSetUp]
-        public void Setup()
-        {
-            
-        }
-
         [Test]
         public void InitializeEngine()
         {
