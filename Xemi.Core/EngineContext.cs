@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Runtime.CompilerServices;
 using Xemi.Core.Configuration;
+using Xemi.Core.Dependency;
 using Xemi.Core.Utils;
 
 namespace Xemi.Core
@@ -13,9 +14,30 @@ namespace Xemi.Core
         {
             if (Singleton<IEngine>.Instance == null || forceRecreate)
             {
-                Singleton<IEngine>.Instance = CreateEngineInstance(EnvConfiguration);
+                var config = EnvConfiguration;
+
+                InitDependencyManager(config);
+
+                Singleton<IEngine>.Instance = CreateEngineInstance(config);
+                Singleton<IEngine>.Instance.Initialize(config);
             }
             return Singleton<IEngine>.Instance;
+        }
+
+        private static void InitDependencyManager(XemiEnvConfig envConfig)
+        {
+            if (envConfig == null || string.IsNullOrEmpty(envConfig.DependencyManagerType))
+                throw new XemiException(
+                    "Intialize failure cause the context can not get a proper dependency manager type from configuration.");
+
+            var dependencyManagerType = Type.GetType(envConfig.DependencyManagerType);
+
+            if (dependencyManagerType == null)
+                throw new ConfigurationErrorsException(string.Format("The dependency manager type '{0}' can not be found.", envConfig.DependencyManagerType));
+            if (!typeof(IDependencyManager).IsAssignableFrom(dependencyManagerType))
+                throw new ConfigurationErrorsException(string.Format("The dependency manager type '{0}' doesn't implement 'Xemi.Core.IEngine'", envConfig.DependencyManagerType));
+
+            Singleton<IDependencyManager>.Instance = Activator.CreateInstance(dependencyManagerType) as IDependencyManager;
         }
 
         public static IEngine CreateEngineInstance(XemiEnvConfig envConfig)
@@ -67,6 +89,11 @@ namespace Xemi.Core
                     LoadEnvConfiguration();
                 return Singleton<XemiEnvConfig>.Instance;
             }
+        }
+
+        public static IDependencyManager DependencyManager
+        {
+            get { return Singleton<IDependencyManager>.Instance; }
         }
     }
 }
