@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using Xemi.Core.Configuration;
 using Xemi.Core.Dependency;
@@ -30,7 +31,9 @@ namespace Xemi.Core
                 throw new XemiException(
                     "Intialize failure cause the context can not get a proper dependency manager type from configuration.");
 
-            var dependencyManagerType = Type.GetType(envConfig.DependencyManagerType);
+            var assembly = Assembly.Load("Xemi.Dependency.Autofac");
+            var dependencyManagerType = assembly.GetType(envConfig.DependencyManagerType);
+            //var dependencyManagerType = Type.GetType(envConfig.DependencyManagerType);
 
             if (dependencyManagerType == null)
                 throw new ConfigurationErrorsException(string.Format("The dependency manager type '{0}' can not be found.", envConfig.DependencyManagerType));
