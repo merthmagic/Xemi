@@ -15,7 +15,7 @@ namespace Xemi.Core.UnitTests
                 {
                     case "Xemi:DependencyManagerType":
                         {
-                            return "Xemi.Dependency.Autofac.DependencyManager";
+                            return "Xemi.Dependency.Autofac.DependencyManager,Xemi.Dependency.Autofac";
                         }
                     default:
                         {
