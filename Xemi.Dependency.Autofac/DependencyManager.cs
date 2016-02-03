@@ -1,64 +1,85 @@
-﻿using Xemi.Core.Dependency;
+﻿using System;
+using Xemi.Core.Dependency;
+using Autofac;
 
 namespace Xemi.Dependency.Autofac
 {
-    public class DependencyManager:IDependencyManager
+    public class DependencyManager : IDependencyManager
     {
-        public T Resolve<T>()
+        private ContainerManager _containerManager;
+
+        public DependencyManager()
         {
-            throw new System.NotImplementedException();
+            IntializeContainer();
         }
 
-        public object Resolve(System.Type type)
+        private void IntializeContainer()
         {
-            throw new System.NotImplementedException();
+            var container = new ContainerBuilder();
+            _containerManager = new ContainerManager(container.Build());
+            ContainerConfigure(_containerManager);
+        }
+
+        private void ContainerConfigure(ContainerManager containerManager)
+        {
+            //TODO:
+        }
+
+        public T Resolve<T>() where T : class
+        {
+            return _containerManager.Resolve<T>();
+        }
+
+        public object Resolve(Type type)
+        {
+            return _containerManager.Resolve(type);
         }
 
         public T[] ResolveAll<T>()
         {
-            throw new System.NotImplementedException();
+            return _containerManager.ResolveAll<T>();
         }
 
-        public bool IsRegistered<T>()
+        public bool IsRegistered<T>() where T : class
         {
-            throw new System.NotImplementedException();
+            return _containerManager.IsRegistered<T>();
         }
 
-        public bool IsRegistered(System.Type type)
+        public bool IsRegistered(Type type)
         {
-            throw new System.NotImplementedException();
+            return _containerManager.IsRegistered(type);
         }
 
         public void Register<T>(DependencyLifeStyle dependencyLifeStyle = DependencyLifeStyle.Singleton) where T : class
         {
-            throw new System.NotImplementedException();
+            _containerManager.AddComponent<T>(lifeStyle: dependencyLifeStyle.ToComponentLifeStyle());
         }
 
-        public void Register(System.Type type, DependencyLifeStyle dependencyLifeStyle = DependencyLifeStyle.Singleton)
+        public void Register(Type type, DependencyLifeStyle dependencyLifeStyle = DependencyLifeStyle.Singleton)
         {
-            throw new System.NotImplementedException();
+            _containerManager.AddComponent(type, lifeStyle: dependencyLifeStyle.ToComponentLifeStyle());
         }
 
         public void Register<TType, TImpl>(DependencyLifeStyle dependencyLifeStyle = DependencyLifeStyle.Singleton)
             where TType : class
             where TImpl : class
         {
-            throw new System.NotImplementedException();
+            _containerManager.AddComponent<TType, TImpl>(lifeStyle: dependencyLifeStyle.ToComponentLifeStyle());
         }
 
-        public void Register(System.Type type, System.Type typeImpl, DependencyLifeStyle dependencyLifeStyle = DependencyLifeStyle.Singleton)
+        public void Register(Type type, Type typeImpl, DependencyLifeStyle dependencyLifeStyle = DependencyLifeStyle.Singleton)
         {
-            throw new System.NotImplementedException();
+            _containerManager.AddComponent(type, typeImpl, lifeStyle: dependencyLifeStyle.ToComponentLifeStyle());
         }
 
-        public void RegisterGeneric(System.Type implementer)
+        public void RegisterGeneric(Type implementer)
         {
-            throw new System.NotImplementedException();
+            _containerManager.AddGenericComponent(implementer);
         }
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
