@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Configuration\ConfigResolver.cs" />
     <Compile Include="Configuration\IConfigResolver.cs" />
-    <Compile Include="Configuration\XemiEnvConfig.cs" />
+    <Compile Include="Configuration\XEnvConfig.cs" />
     <Compile Include="Dependency\DependencyLifeStyle.cs" />
     <Compile Include="Dependency\IDependencyManagerContainer.cs" />
     <Compile Include="Dependency\IDependencyRegistrar.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Tasks\IStartupTask.cs" />
     <Compile Include="Utils\Singleton.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
-    <Compile Include="XemiException.cs" />
+    <Compile Include="XException.cs" />
     <Compile Include="XEngine.cs" />
   </ItemGroup>
   <ItemGroup />

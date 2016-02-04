@@ -29,10 +29,10 @@ namespace Xemi.Core
             return Singleton<IEngine>.Instance;
         }
 
-        private static void InitDependencyManager(XemiEnvConfig envConfig)
+        private static void InitDependencyManager(XEnvConfig envConfig)
         {
             if (envConfig == null || string.IsNullOrEmpty(envConfig.DependencyManagerType))
-                throw new XemiException(
+                throw new XException(
                     "Intialize failure cause the context can not get a proper dependency manager type from configuration.");
 
             var dependencyManagerType = Type.GetType(envConfig.DependencyManagerType);
@@ -45,7 +45,7 @@ namespace Xemi.Core
             Singleton<IDependencyManager>.Instance = Activator.CreateInstance(dependencyManagerType) as IDependencyManager;
         }
 
-        public static IEngine CreateEngineInstance(XemiEnvConfig envConfig)
+        public static IEngine CreateEngineInstance(XEnvConfig envConfig)
         {
             if (envConfig == null || string.IsNullOrEmpty(envConfig.EngineType))
                 throw new ApplicationException(
@@ -71,28 +71,28 @@ namespace Xemi.Core
             }
         }
 
-        public static XemiEnvConfig EnvConfiguration
+        public static XEnvConfig EnvConfiguration
         {
             get
             {
-                if (Singleton<XemiEnvConfig>.Instance == null)
+                if (Singleton<XEnvConfig>.Instance == null)
                     LoadEnvConfiguration();
-                return Singleton<XemiEnvConfig>.Instance;
+                return Singleton<XEnvConfig>.Instance;
             }
         }
 
         private static void LoadEnvConfiguration()
         {
-            Singleton<XemiEnvConfig>.Instance = new XemiEnvConfig();
+            Singleton<XEnvConfig>.Instance = new XEnvConfig();
         }
 
-        public static XemiEnvConfig EnvConfig
+        public static XEnvConfig EnvConfig
         {
             get
             {
-                if (Singleton<XemiEnvConfig>.Instance == null)
+                if (Singleton<XEnvConfig>.Instance == null)
                     LoadEnvConfiguration();
-                return Singleton<XemiEnvConfig>.Instance;
+                return Singleton<XEnvConfig>.Instance;
             }
         }
 

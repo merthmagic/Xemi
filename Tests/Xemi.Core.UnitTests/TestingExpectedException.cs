@@ -1,6 +1,6 @@
 ﻿namespace Xemi.Core.UnitTests
 {
-    public class TestingExpectedException:XemiException
+    public class TestingExpectedException:XException
     {
          
     }

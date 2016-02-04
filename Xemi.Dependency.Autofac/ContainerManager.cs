@@ -170,17 +170,17 @@ namespace Xemi.Dependency.Autofac
                     foreach (var parameter in parameters)
                     {
                         var service = Resolve(parameter.ParameterType, scope);
-                        if (service == null) throw new XemiException("Unkown dependency");
+                        if (service == null) throw new XException("Unkown dependency");
                         parameterInstances.Add(service);
                     }
                     return Activator.CreateInstance(type, parameterInstances.ToArray());
                 }
-                catch (XemiException)
+                catch (XException)
                 {
 
                 }
             }
-            throw new XemiException("No contructor was found that had all the dependencies satisfied.");
+            throw new XException("No contructor was found that had all the dependencies satisfied.");
         }
 
         public bool TryResolve(Type serviceType, ILifetimeScope scope, out object instance)

@@ -17,7 +17,7 @@ namespace Xemi.Core
             _dependencyManager = EngineContext.DependencyManager;
         }
 
-        public void Initialize(XemiEnvConfig config)
+        public void Initialize(XEnvConfig config)
         {
             InternalInitalize(config);
 
@@ -27,7 +27,7 @@ namespace Xemi.Core
                 RunStartupTasks();
         }
 
-        private void InternalInitalize(XemiEnvConfig config)
+        private void InternalInitalize(XEnvConfig config)
         {
             VerifyContext();
 
@@ -37,7 +37,7 @@ namespace Xemi.Core
         private void VerifyContext()
         {
             if (_dependencyManager == null)
-                throw new XemiException("Intialize engine failed because denpendency manager provided by context is null");
+                throw new XException("Intialize engine failed because denpendency manager provided by context is null");
         }
 
         private void RegisterCoreDependencies()

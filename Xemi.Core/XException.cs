@@ -3,30 +3,30 @@ using System.Runtime.Serialization;
 
 namespace Xemi.Core
 {
-    public class XemiException:Exception
+    public class XException:Exception
     {
-         public XemiException()
+         public XException()
         { }
 
-        public XemiException(string message)
+        public XException(string message)
             : base(message)
         {
 
         }
 
-        public XemiException(string messageFormat, params object[] args)
+        public XException(string messageFormat, params object[] args)
             : base(string.Format(messageFormat, args))
         {
 
         }
 
-        public XemiException(SerializationInfo info, StreamingContext context)
+        public XException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
 
         }
 
-        public XemiException(string message, Exception innerException)
+        public XException(string message, Exception innerException)
             : base(message, innerException)
         {
 

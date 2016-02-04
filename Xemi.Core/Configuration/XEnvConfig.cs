@@ -2,7 +2,7 @@
 
 namespace Xemi.Core.Configuration
 {
-    public class XemiEnvConfig
+    public class XEnvConfig
     {
         private readonly IConfigResolver _resolver;
 
@@ -14,7 +14,7 @@ namespace Xemi.Core.Configuration
 
         private const string DEPENDENCY_TYPE_CONFIG_KEY = "Xemi:DependencyManagerType";
 
-        public XemiEnvConfig()
+        public XEnvConfig()
         {
             _resolver = ConfigResolver.Current;
         }

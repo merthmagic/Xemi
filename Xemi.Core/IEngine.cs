@@ -6,7 +6,7 @@ namespace Xemi.Core
 {
     public interface IEngine
     {
-        void Initialize(XemiEnvConfig config);
+        void Initialize(XEnvConfig config);
 
         T Resolve<T>(Type type) where T : class;
 
