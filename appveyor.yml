@@ -1,5 +1,3 @@
 before_build:
-  - nuget restore
+  - nuget restore src\Xemi.sln
 
-build: 
-  project: src\Xemi.sln
