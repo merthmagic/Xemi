@@ -1,6 +1,7 @@
 ﻿using System;
 using Xemi.Core.Dependency;
 using Autofac;
+using Xemi.Core.Reflection;
 
 namespace Xemi.Dependency.Autofac
 {
@@ -22,7 +23,7 @@ namespace Xemi.Dependency.Autofac
 
         private void ContainerConfigure(ContainerManager containerManager)
         {
-            //TODO:
+            
         }
 
         public T Resolve<T>() where T : class

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace Xemi.Core.Dependency
+namespace Xemi.Core.Reflection
 {
     public interface ITypeFinder
     {

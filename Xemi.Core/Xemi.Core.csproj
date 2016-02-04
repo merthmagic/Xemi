@@ -47,10 +47,12 @@
     <Compile Include="Dependency\IDependencyRegistrar.cs" />
     <Compile Include="Dependency\IDependencyManager.cs" />
     <Compile Include="Dependency\IDependencyResolver.cs" />
-    <Compile Include="Dependency\ITypeFinder.cs" />
+    <Compile Include="Reflection\AppDomainTypeFinder.cs" />
+    <Compile Include="Reflection\ITypeFinder.cs" />
     <Compile Include="EngineContext.cs" />
     <Compile Include="IEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\IStartupTask.cs" />
     <Compile Include="Utils\Singleton.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
     <Compile Include="XemiException.cs" />
