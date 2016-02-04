@@ -15,6 +15,10 @@ namespace Xemi.Core
         {
             if (Singleton<IEngine>.Instance == null || forceRecreate)
             {
+                //if force recreate,reload the env config
+                if(forceRecreate)
+                    LoadEnvConfiguration();
+
                 var config = EnvConfiguration;
 
                 InitDependencyManager(config);
