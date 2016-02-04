@@ -40,7 +40,13 @@ namespace Xemi.Core.UnitTests
             ConfigResolver.SetResolver(new StubConfigResolver(false));
             Assert.Throws<TestingExpectedException>(() => EngineContext.Initialize(true));
         }
+
+        [Test]
+        public void IntializeModules()
+        {
+            //make sure engine was initialzied
+            EngineContext.Initialize();
+            Assert.AreEqual("Initialized", StubModule.Output);
+        }
     }
-
-
 }

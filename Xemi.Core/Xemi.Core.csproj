@@ -49,7 +49,9 @@
     <Compile Include="Dependency\IDependencyManager.cs" />
     <Compile Include="Dependency\IDependencyResolver.cs" />
     <Compile Include="Modules\IModule.cs" />
+    <Compile Include="Modules\IModuleManager.cs" />
     <Compile Include="Modules\XModule.cs" />
+    <Compile Include="Modules\XModuleManager.cs" />
     <Compile Include="Reflection\AppDomainTypeFinder.cs" />
     <Compile Include="Reflection\ITypeFinder.cs" />
     <Compile Include="EngineContext.cs" />

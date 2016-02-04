@@ -2,6 +2,7 @@
 using System.Linq;
 using Xemi.Core.Configuration;
 using Xemi.Core.Dependency;
+using Xemi.Core.Modules;
 using Xemi.Core.Reflection;
 using Xemi.Core.Tasks;
 
@@ -44,6 +45,7 @@ namespace Xemi.Core
             //Some core dependencies are registerd in this method
             //FIXME: hard code exits here(register AppDomainTypeFinder for testing).
             _dependencyManager.Register<ITypeFinder, AppDomainTypeFinder>();
+            _dependencyManager.Register<IModuleManager,XModuleManager>();
         }
 
         public T Resolve<T>(Type type) where T : class
@@ -74,7 +76,8 @@ namespace Xemi.Core
 
         protected void InitializeModules()
         {
-            //TODO:
+            var moduleManager = DependencyManager.Resolve<IModuleManager>();
+            moduleManager.IntializeModules();
         }
 
         public IDependencyManager DependencyManager
