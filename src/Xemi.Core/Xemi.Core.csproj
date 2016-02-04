@@ -50,6 +50,10 @@
     <Compile Include="Dependency\IDependencyRegistrar.cs" />
     <Compile Include="Dependency\IDependencyManager.cs" />
     <Compile Include="Dependency\IDependencyResolver.cs" />
+    <Compile Include="Logging\Extensions.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="Modules\IModule.cs" />
     <Compile Include="Modules\IModuleManager.cs" />
     <Compile Include="Modules\XModule.cs" />
