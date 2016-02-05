@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xemi.Core", "Xemi.Core\Xemi.Core.csproj", "{D4552EEF-B7AE-488A-8408-D944DC69F0A7}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xemi.Dependency.Autofac", "Xemi.Dependency.Autofac\Xemi.Dependency.Autofac.csproj", "{A57C5166-1B24-4534-BB19-ECF6FA3239BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xemi.Caching", "Xemi.Caching\Xemi.Caching.csproj", "{D9E9F34B-AB43-4F8F-9FB1-EE334C0E8B27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9D036219-4A72-483E-86C1-EFCDC919DA99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTask", "Samples\SimpleTask\SimpleTask.csproj", "{AAB75F8B-DE8F-448C-9F3F-0D2838A9D5F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,11 +39,16 @@ Global
 		{D9E9F34B-AB43-4F8F-9FB1-EE334C0E8B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9E9F34B-AB43-4F8F-9FB1-EE334C0E8B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9E9F34B-AB43-4F8F-9FB1-EE334C0E8B27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB75F8B-DE8F-448C-9F3F-0D2838A9D5F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB75F8B-DE8F-448C-9F3F-0D2838A9D5F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB75F8B-DE8F-448C-9F3F-0D2838A9D5F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB75F8B-DE8F-448C-9F3F-0D2838A9D5F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5F1362B1-6BF5-4E66-90C5-19F64CBC6752} = {32D15889-F616-4F2E-98DF-3A4B7DF0A5D0}
+		{AAB75F8B-DE8F-448C-9F3F-0D2838A9D5F4} = {9D036219-4A72-483E-86C1-EFCDC919DA99}
 	EndGlobalSection
 EndGlobal
