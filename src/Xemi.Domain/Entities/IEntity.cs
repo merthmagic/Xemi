@@ -1,4 +1,4 @@
-﻿namespace Xemi.Domain
+﻿namespace Xemi.Domain.Entities
 {
 
     public interface IEntity<out TKey>

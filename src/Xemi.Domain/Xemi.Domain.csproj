@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseEntity.cs" />
-    <Compile Include="IEntity.cs" />
+    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\BaseEntityOfTKey.cs" />
+    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\ISoftDelete.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
