@@ -8,7 +8,7 @@ using Xemi.Domain.Entities;
 
 namespace Xemi.Domain.Repository
 {
-    public interface IRepositoryOfTEntityAndTKey<TEntity, TKey> : IRepository where TEntity : IEntity<TKey>
+    public interface IRepository<TEntity, TKey> : IRepository where TEntity : IEntity<TKey>
     {
         IQueryable<TEntity> GetAll();
 
