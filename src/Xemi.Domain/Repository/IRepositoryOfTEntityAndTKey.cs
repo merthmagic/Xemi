@@ -18,7 +18,7 @@ namespace Xemi.Domain.Repository
 
         IList<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate);
 
-        IList<TEntity> GetAllListAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<IList<TEntity>> GetAllListAsync(Expression<Func<TEntity, bool>> predicate);
 
         T Queary<T>(Func<IQueryable<TEntity>, T> queryMethod);
 
@@ -64,6 +64,10 @@ namespace Xemi.Domain.Repository
 
         Task DeleteAsync(TKey id);
 
+        void Delete(TEntity entity);
+
+        Task DeleteAsync(TEntity entity);
+
         void Delete(Expression<Func<TEntity, bool>> predicate);
 
         Task DeleteAsync(Expression<Func<TEntity, bool>> predicate);
@@ -82,6 +86,6 @@ namespace Xemi.Domain.Repository
 
         long LongCount(Expression<Func<TEntity, bool>> predicate);
 
-        long LongCountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

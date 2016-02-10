@@ -1,194 +1,217 @@
-﻿using Xemi.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Linq.Expressions;
+using Xemi.Domain.Entities;
 
 namespace Xemi.Domain.Repository
 {
     public abstract class BaseRepository<TEntity,TKey>:IRepository<TEntity,TKey>
         where TEntity:class,IEntity<TKey>
     {
+        public abstract IQueryable<TEntity> GetAll();
 
-        public System.Linq.IQueryable<TEntity> GetAll()
+        public virtual IList<TEntity> GetAllList()
         {
-            throw new System.NotImplementedException();
+            return GetAll().ToList();
         }
 
-        public System.Collections.Generic.IList<TEntity> GetAllList()
+        public virtual Task<IList<TEntity>> GetAllListAsync()
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(GetAllList());
         }
 
-        public System.Threading.Tasks.Task<System.Collections.Generic.IList<TEntity>> GetAllListAsync()
+        public virtual IList<TEntity> GetAllList(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return GetAll().Where(predicate).ToList();
         }
 
-        public System.Collections.Generic.IList<TEntity> GetAllList(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual Task<IList<TEntity>> GetAllListAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(GetAllList(predicate));
         }
 
-        public System.Collections.Generic.IList<TEntity> GetAllListAsync(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual T Queary<T>(Func<IQueryable<TEntity>, T> queryMethod)
         {
-            throw new System.NotImplementedException();
+            return queryMethod(GetAll());
         }
 
-        public T Queary<T>(System.Func<System.Linq.IQueryable<TEntity>, T> queryMethod)
+        public virtual TEntity Get(TKey id)
         {
-            throw new System.NotImplementedException();
+            var entity = FirstOrDefault(id);
+            if(entity == null)
+                throw new Exception("There is no such an entity with given primary key. Entity type: " + typeof(TEntity).FullName + ", primary key: " + id);
+            return entity;
         }
 
-        public TEntity Get(TKey id)
+        public virtual async Task<TEntity> GetAsync(TKey id)
         {
-            throw new System.NotImplementedException();
+            var entity = await FirstOrDefaultAsync(id);
+            if (entity == null)
+                throw new Exception("There is no such an entity with given primary key. Entity type: " + typeof(TEntity).FullName + ", primary key: " + id);
+            return entity;
         }
 
-        public System.Threading.Tasks.Task<TEntity> GetAsync(TKey id)
+        public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return GetAll().Single(predicate);
         }
 
-        public TEntity Single(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(Single(predicate));
         }
 
-        public System.Threading.Tasks.Task<TEntity> SingleAsync(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual TEntity FirstOrDefault(TKey id)
         {
-            throw new System.NotImplementedException();
+            return GetAll().FirstOrDefault(CreateEqualityExpressionForId(id));
         }
 
-        public TEntity FirstOrDefault(TKey id)
+        public virtual Task<TEntity> FirstOrDefaultAsync(TKey id)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(FirstOrDefault(id));
         }
 
-        public System.Threading.Tasks.Task<TEntity> FirstOrDefaultAsync(TKey id)
+        public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return GetAll().FirstOrDefault(predicate);
         }
 
-        public TEntity FirstOrDefault(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public System.Threading.Tasks.Task<TEntity> FirstOrDefaultAsync(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
-        {
-            throw new System.NotImplementedException();
+            return Task.FromResult(FirstOrDefault(predicate));
         }
 
         public TEntity Load(TKey id)
         {
-            throw new System.NotImplementedException();
+            return Get(id);
         }
 
-        public TEntity Insert(TEntity entity)
+        public abstract TEntity Insert(TEntity entity);
+
+        public virtual Task<TEntity> InsertAsync(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(Insert(entity));
         }
 
-        public System.Threading.Tasks.Task<TEntity> InsertAsync(TEntity entity)
+        public virtual TKey InsertAndGetId(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return Insert(entity).Id;
         }
 
-        public TKey InsertAndGetId(TEntity entity)
+        public virtual Task<TKey> InsertAndGetIdAsync(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(InsertAndGetId(entity));
         }
 
-        public System.Threading.Tasks.Task<TKey> InsertAndGetIdAsync(TEntity entity)
+        public virtual TEntity InsertOrUpdate(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return entity.IsTransient() ? Insert(entity) : Update(entity);
+
         }
 
-        public TEntity InsertOrUpdate(TEntity entity)
+        public virtual async Task<TEntity> InsertOrUpdateAsync(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return entity.IsTransient() ? await InsertAsync(entity) :await UpdateAsync(entity);
         }
 
-        public System.Threading.Tasks.Task<TEntity> InsertOrUpdateAsync(TEntity entity)
+        public virtual TKey InsertOrUpdateAndGetId(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return InsertOrUpdate(entity).Id;
         }
 
-        public TKey InsertOrUpdateAndGetId(TEntity entity)
+        public virtual Task<TKey> InsertOrUpdateAndGetIdAsync(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(InsertOrUpdateAndGetId(entity));
         }
 
-        public System.Threading.Tasks.Task<TKey> InsertOrUpdateAndGetIdAsync(TEntity entity)
+        public abstract TEntity Update(TEntity entity);
+
+        public virtual Task<TEntity> UpdateAsync(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(Update(entity));
         }
 
-        public TEntity Update(TEntity entity)
+        public abstract void Delete(TKey id);
+
+        public virtual Task DeleteAsync(TKey id)
         {
-            throw new System.NotImplementedException();
+            Delete(id);
+            return Task.FromResult(0);
         }
 
-        public System.Threading.Tasks.Task<TEntity> UpdateAsync(TEntity entity)
+        public abstract void Delete(TEntity entity);
+
+        public virtual Task DeleteAsync(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            Delete(entity);
+            return Task.FromResult(0);
         }
 
-        public void Delete(TKey id)
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            foreach (var entity in GetAll().Where(predicate).ToList())
+            {
+                Delete(entity);
+            }
         }
 
-        public System.Threading.Tasks.Task DeleteAsync(TKey id)
+        public virtual async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            Delete(predicate);
         }
 
-        public void Delete(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual int Count()
         {
-            throw new System.NotImplementedException();
+            return GetAll().Count();
         }
 
-        public System.Threading.Tasks.Task DeleteAsync(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual Task<int> CountAsync()
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(Count());
         }
 
-        public int Count()
+        public virtual int Count(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return GetAll().Where(predicate).Count();
         }
 
-        public System.Threading.Tasks.Task<int> CountAsync()
+        public virtual Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(Count());
         }
 
-        public int Count(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual long LongCount()
         {
-            throw new System.NotImplementedException();
+            return GetAll().LongCount();
         }
 
-        public System.Threading.Tasks.Task<int> CountAsync(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        public virtual Task<long> LongCountAsync()
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(LongCount());
         }
 
-        public long LongCount()
+        public virtual long LongCount(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return GetAll().Where(predicate).LongCount();
         }
 
-        public System.Threading.Tasks.Task<long> LongCountAsync()
+        public virtual Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return Task.FromResult(LongCount(predicate));
         }
 
-        public long LongCount(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
+        protected static Expression<Func<TEntity, bool>> CreateEqualityExpressionForId(TKey id)
         {
-            throw new System.NotImplementedException();
-        }
+            var lambdaParam = Expression.Parameter(typeof(TEntity));
 
-        public long LongCountAsync(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate)
-        {
-            throw new System.NotImplementedException();
+            var lambdaBody = Expression.Equal(
+                Expression.PropertyOrField(lambdaParam, "Id"),
+                Expression.Constant(id, typeof(TKey))
+                );
+
+            return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
     }
 }
